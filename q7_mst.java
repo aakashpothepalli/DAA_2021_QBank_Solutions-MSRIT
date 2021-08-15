@@ -1,7 +1,7 @@
 import java.util.*;
-class pair{
+class edge{
     int v,cost,parent;
-    pair(int v,int cost,int parent){
+    edge(int v,int cost,int parent){
         this.v =v ;
         this.cost = cost;
         this.parent = parent;
@@ -9,25 +9,25 @@ class pair{
 }
 
 class q7_mst {
-    Map<Integer,ArrayList<pair>> graph = new HashMap<Integer,ArrayList<pair>>();
+    Map<Integer,ArrayList<edge>> graph = new HashMap<Integer,ArrayList<edge>>();
     
     public void solve(int v, int e,int src) {
-        PriorityQueue<pair> pq = new PriorityQueue<pair>(v,(p1,p2)->p1.cost<=p2.cost?-1:1);
+        PriorityQueue<edge> pq = new PriorityQueue<edge>(v,(p1,p2)->p1.cost<=p2.cost?-1:1);
         Map<Integer,Boolean> visited = new HashMap<>();        
         
-        ArrayList<pair> edges = new ArrayList<pair>();
+        ArrayList<edge> edges = new ArrayList<edge>();
         
-        pq.add(new pair(src,0,-1));
+        pq.add(new edge(src,0,-1));
         while(pq.size()!=0){
-            pair p = pq.poll();
+            edge p = pq.poll();
             if(visited.get(p.v)!=null){
                 continue;
             }
             visited.put(p.v,true);
             if(p.parent!=-1)
-                edges.add(new pair(p.v,p.cost,p.parent));
-            for(pair pc : graph.get(p.v)){
-                pq.add(new pair(pc.v,pc.cost+p.cost,p.v));
+                edges.add(new edge(p.v,p.cost,p.parent));
+            for(edge pc : graph.get(p.v)){
+                pq.add(new edge(pc.v,pc.cost+p.cost,p.v));
             }
         }
         for(int i = 0 ; i <edges.size();i++){
@@ -48,13 +48,13 @@ class q7_mst {
             int v2 = scan.nextInt();
             int cost = scan.nextInt();
 
-            ArrayList<pair> v1edges = graph.get(v1);
-            if(v1edges==null)v1edges = new ArrayList<pair>();
-            ArrayList<pair> v2edges = graph.get(v2);
-            if(v2edges == null)v2edges = new ArrayList<pair>();
+            ArrayList<edge> v1edges = graph.get(v1);
+            if(v1edges==null)v1edges = new ArrayList<edge>();
+            ArrayList<edge> v2edges = graph.get(v2);
+            if(v2edges == null)v2edges = new ArrayList<edge>();
 
-            v1edges.add(new pair(v2,cost,-1));
-            v2edges.add(new pair(v1,cost,-1));
+            v1edges.add(new edge(v2,cost,-1));
+            v2edges.add(new edge(v1,cost,-1));
             graph.put(v1, v1edges);
             graph.put(v2, v2edges);
         }
