@@ -7,7 +7,7 @@ class Pair{
     }
 }
 class q6_dijkstra {
-    Map<Integer,ArrayList<Pair>> m = new HashMap<Integer,ArrayList<Pair>>();
+    Map<Integer,ArrayList<Pair>> graph = new HashMap<Integer,ArrayList<Pair>>();
     
     public void solve(int v, int e,int src) {
         PriorityQueue<Pair> pq = new PriorityQueue<Pair>(v,(p1,p2)->p1.cost<=p2.cost?-1:1);
@@ -28,7 +28,7 @@ class q6_dijkstra {
             visited.put(p.v,true);
             dis[p.v] = p.cost;
 
-            for(Pair pc : m.get(p.v)){
+            for(Pair pc : graph.get(p.v)){
                 pq.add(new Pair(pc.v,pc.cost+p.cost));
             }
         }
@@ -50,15 +50,15 @@ class q6_dijkstra {
             int v2 = scan.nextInt();
             int cost = scan.nextInt();
 
-            ArrayList<Pair> v1edges = m.get(v1);
+            ArrayList<Pair> v1edges = graph.get(v1);
             if(v1edges==null)v1edges = new ArrayList<Pair>();
-            ArrayList<Pair> v2edges = m.get(v2);
+            ArrayList<Pair> v2edges = graph.get(v2);
             if(v2edges == null)v2edges = new ArrayList<Pair>();
 
             v1edges.add(new Pair(v2,cost));
             v2edges.add(new Pair(v1,cost));
-            m.put(v1, v1edges);
-            m.put(v2, v2edges);
+            graph.put(v1, v1edges);
+            graph.put(v2, v2edges);
         }
         solve(v,e,1);
     }

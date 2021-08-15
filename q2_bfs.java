@@ -1,7 +1,7 @@
 import java.util.*;
 
 class q2_bfs {
-    Map<String,ArrayList<String>> m = new HashMap<>(); 
+    Map<String,ArrayList<String>> graph = new HashMap<>(); 
     public void solve(String src) {
 
         Queue<String> q = new LinkedList<String>();
@@ -15,7 +15,7 @@ class q2_bfs {
             }
             nodes.add(node);
             visited.put(node,true);
-            for(String child : m.get(node)){
+            for(String child : graph.get(node)){
                 q.add(child);
             }
         }
@@ -36,15 +36,15 @@ class q2_bfs {
             String v1 = scan.next();
             String v2 = scan.next();
 
-            ArrayList<String> v1edges = m.get(v1);
+            ArrayList<String> v1edges = graph.get(v1);
             if(v1edges==null)v1edges = new ArrayList<>();
-            ArrayList<String> v2edges = m.get(v2);
+            ArrayList<String> v2edges = graph.get(v2);
             if(v2edges == null)v2edges = new ArrayList<>();
 
             v1edges.add(v2);
             v2edges.add(v1);
-            m.put(v1, v1edges);
-            m.put(v2, v2edges);
+            graph.put(v1, v1edges);
+            graph.put(v2, v2edges);
         }
         solve("A");
     }

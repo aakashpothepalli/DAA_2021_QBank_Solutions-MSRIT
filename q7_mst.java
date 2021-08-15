@@ -9,7 +9,7 @@ class pair{
 }
 
 class q7_mst {
-    Map<Integer,ArrayList<pair>> m = new HashMap<Integer,ArrayList<pair>>();
+    Map<Integer,ArrayList<pair>> graph = new HashMap<Integer,ArrayList<pair>>();
     
     public void solve(int v, int e,int src) {
         PriorityQueue<pair> pq = new PriorityQueue<pair>(v,(p1,p2)->p1.cost<=p2.cost?-1:1);
@@ -26,7 +26,7 @@ class q7_mst {
             visited.put(p.v,true);
             if(p.parent!=-1)
                 edges.add(new pair(p.v,p.cost,p.parent));
-            for(pair pc : m.get(p.v)){
+            for(pair pc : graph.get(p.v)){
                 pq.add(new pair(pc.v,pc.cost+p.cost,p.v));
             }
         }
@@ -48,15 +48,15 @@ class q7_mst {
             int v2 = scan.nextInt();
             int cost = scan.nextInt();
 
-            ArrayList<pair> v1edges = m.get(v1);
+            ArrayList<pair> v1edges = graph.get(v1);
             if(v1edges==null)v1edges = new ArrayList<pair>();
-            ArrayList<pair> v2edges = m.get(v2);
+            ArrayList<pair> v2edges = graph.get(v2);
             if(v2edges == null)v2edges = new ArrayList<pair>();
 
             v1edges.add(new pair(v2,cost,-1));
             v2edges.add(new pair(v1,cost,-1));
-            m.put(v1, v1edges);
-            m.put(v2, v2edges);
+            graph.put(v1, v1edges);
+            graph.put(v2, v2edges);
         }
         solve(v,e,1);
     }
@@ -66,13 +66,15 @@ class q7_mst {
 
     }
 }
-//input
-// 5
-// 7
-// 5 1 5
-// 5 4 3
-// 3 4 2
-// 3 2 1
-// 2 1 10
-// 4 2 6
-// 5 3 7
+/*
+input
+5
+7
+5 1 5
+5 4 3
+3 4 2
+3 2 1
+2 1 10
+4 2 6
+5 3 7
+*/
