@@ -11,21 +11,22 @@ class q6_dijkstra {
     
     public void solve(int v, int e,int src) {
         PriorityQueue<Pair> pq = new PriorityQueue<Pair>(v,(p1,p2)->p1.cost<=p2.cost?-1:1);
-        Map<Integer,Boolean> visited = new HashMap<>();        
+        Boolean[] visited = new Boolean[v+1];        
         int[] dis= new int[v+1];
 
-        for(int i = 0 ;i<v;i++){
+        for(int i = 0 ;i<=v;i++){
             dis[i] = Integer.MAX_VALUE;
+            visited[i] = false;
         }
         dis[src] = 0;
         
         pq.add(new Pair(src,0));
         while(pq.size()!=0){
             Pair p = pq.poll();
-            if(visited.get(p.v)!=null){
+            if(visited[p.v]==true){
                 continue;
             }
-            visited.put(p.v,true);
+            visited[p.v]=true;
             dis[p.v] = p.cost;
 
             for(Pair pc : graph.get(p.v)){
@@ -44,6 +45,10 @@ class q6_dijkstra {
         System.out.println("Enter number of edges");
         int e = scan.nextInt();
 
+        for(int i = 0; i<=v;i++){
+            //initialize adjacency list 
+            graph.put(i, new ArrayList<Pair>());
+        }
         for(int i =0  ; i<e;i++){
             System.out.printf("enter edge %d in the format vertex1 vertex2 cost\n",i+1);
             int v1 = scan.nextInt();
@@ -51,14 +56,13 @@ class q6_dijkstra {
             int cost = scan.nextInt();
 
             ArrayList<Pair> v1edges = graph.get(v1);
-            if(v1edges==null)v1edges = new ArrayList<Pair>();
             ArrayList<Pair> v2edges = graph.get(v2);
-            if(v2edges == null)v2edges = new ArrayList<Pair>();
-
+            
             v1edges.add(new Pair(v2,cost));
             v2edges.add(new Pair(v1,cost));
             graph.put(v1, v1edges);
             graph.put(v2, v2edges);
+            // insert links v1->v2 , v2->v1 in the graph
         }
         solve(v,e,1);
     }
@@ -69,14 +73,16 @@ class q6_dijkstra {
     }
 }
 
+/*
+Input
 
-//Input
+5
+6
+1 2 10 
+1 5 100
+2 3 50
+5 3 10
+5 4 60
+3 4 20
 
-// 5
-// 6
-// 1 2 10 
-// 1 5 100
-// 2 3 50
-// 5 3 10
-// 5 4 60
-// 3 4 20
+*/
