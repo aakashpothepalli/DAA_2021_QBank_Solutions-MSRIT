@@ -1,12 +1,12 @@
 import java.util.*;
-class Pair{
-    int v,cost;
-    Pair(int v,int cost){
-        this.v =v ;
-        this.cost = cost;
-    }
-}
 class q6_dijkstra {
+    class Pair{
+        int v,cost;
+        Pair(int v,int cost){
+            this.v =v ;
+            this.cost = cost;
+        }
+    }
     Map<Integer,ArrayList<Pair>> graph = new HashMap<Integer,ArrayList<Pair>>();
     
     public void solve(int v, int e,int src) {

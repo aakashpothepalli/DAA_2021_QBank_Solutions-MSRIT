@@ -1,14 +1,14 @@
 import java.util.*;
-class edge{
-    int v,cost,parent;
-    edge(int v,int cost,int parent){
-        this.v =v ;
-        this.cost = cost;
-        this.parent = parent;
-    }
-}
 
 class q7_mst {
+    class edge{
+        int v,cost,parent;
+        edge(int v,int cost,int parent){
+            this.v =v ;
+            this.cost = cost;
+            this.parent = parent;
+        }
+    }
     Map<Integer,ArrayList<edge>> graph = new HashMap<Integer,ArrayList<edge>>();
     
     public void solve(int v, int e,int src) {
