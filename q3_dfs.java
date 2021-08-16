@@ -26,12 +26,12 @@ class q3_dfs {
 
             ans.add(node);
             visited[node]=true;
-            
+
             for(int child : graph.get(node)){
                 st.add(child);
             }
         }
-        System.out.println("DFS traversal from "+src+" : \n");;
+        System.out.println("DFS traversal from "+(char)(src+'A')+" : \n");;
         for(int s : ans){
             System.out.print((char)(s+'A')+" ");
         }
