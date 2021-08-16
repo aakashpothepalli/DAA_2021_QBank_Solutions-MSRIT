@@ -19,8 +19,9 @@ class q6_dijkstra {
             visited[i] = false;
         }
         dis[src] = 0;
-        
         pq.add(new Pair(src,0));
+        // distance between src and src is 0
+
         while(pq.size()!=0){
             Pair p = pq.poll();
             if(visited[p.v]==true){
@@ -34,6 +35,7 @@ class q6_dijkstra {
             }
         }
         for(int i = 1 ; i <=v;i++){
+            //print distance of each vertex from the source
             System.out.println(i +" : "+dis[i] );
         }
         
@@ -50,6 +52,7 @@ class q6_dijkstra {
             graph.put(i, new ArrayList<Pair>());
         }
         for(int i =0  ; i<e;i++){
+            // read edges from the console
             System.out.printf("enter edge %d in the format vertex1 vertex2 cost\n",i+1);
             int v1 = scan.nextInt();
             int v2 = scan.nextInt();
