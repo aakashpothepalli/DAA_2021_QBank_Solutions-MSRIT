@@ -13,23 +13,29 @@ class q7_mst {
     
     public void solve(int v, int e,int src) {
         PriorityQueue<edge> pq = new PriorityQueue<edge>(v,(p1,p2)->p1.cost<=p2.cost?-1:1);
-        Map<Integer,Boolean> visited = new HashMap<>();        
         
+        Boolean[] visited = new Boolean[v+1];        
+        for(int i = 0;i<=v;i++){
+            visited[i] = false;
+        }
+
         ArrayList<edge> edges = new ArrayList<edge>();
         
         pq.add(new edge(src,0,-1));
         while(pq.size()!=0){
             edge p = pq.poll();
-            if(visited.get(p.v)!=null){
+            if(visited[p.v]==true){
                 continue;
             }
-            visited.put(p.v,true);
-            if(p.parent!=-1)
-                edges.add(new edge(p.v,p.cost,p.parent));
-            for(edge pc : graph.get(p.v)){
-                pq.add(new edge(pc.v,pc.cost+p.cost,p.v));
+            visited[p.v] = true;
+
+            edges.add(new edge(p.v,p.cost,p.parent));
+
+            for(edge child : graph.get(p.v)){
+                pq.add(new edge(child.v,child.cost+p.cost,p.v));
             }
         }
+        System.out.println("Edges of minimum spanning tree Vertex1 - Vertex2");
         for(int i = 0 ; i <edges.size();i++){
             System.out.println(edges.get(i).v + " - " + edges.get(i).parent  );
         }
@@ -41,6 +47,11 @@ class q7_mst {
         int v = scan.nextInt();
         System.out.println("Enter number of edges");
         int e = scan.nextInt();
+        
+        for(int i = 0; i<=v;i++){
+            //initialize adjacency list 
+            graph.put(i, new ArrayList<edge>());
+        }
 
         for(int i =0  ; i<e;i++){
             System.out.printf("enter edge %d in the format vertex1 vertex2 cost\n",i+1);
@@ -49,14 +60,14 @@ class q7_mst {
             int cost = scan.nextInt();
 
             ArrayList<edge> v1edges = graph.get(v1);
-            if(v1edges==null)v1edges = new ArrayList<edge>();
             ArrayList<edge> v2edges = graph.get(v2);
-            if(v2edges == null)v2edges = new ArrayList<edge>();
 
             v1edges.add(new edge(v2,cost,-1));
             v2edges.add(new edge(v1,cost,-1));
             graph.put(v1, v1edges);
             graph.put(v2, v2edges);
+            // insert links v1->v2,cost , v2->v1,cost in the graph
+
         }
         solve(v,e,1);
     }
