@@ -14,6 +14,7 @@ class q8_weighted_job_scheduling {
     int[] profits = {100,200,300,400,500,100};
     int n = start_times.length;
     job[] jobs= new job[n];
+
     q8_weighted_job_scheduling(){
         
         for(int i = 0  ; i <n;i++){
@@ -24,11 +25,13 @@ class q8_weighted_job_scheduling {
 
         TreeMap<Integer, Integer> dp = new TreeMap<>();
         dp.put(0, 0);
+
         for (job j : jobs) {
             int cur = dp.floorEntry(j.start).getValue() + j.profit;
             if (cur > dp.lastEntry().getValue())
                 dp.put(j.end, cur);
         }
+        
         System.out.println( dp.lastEntry().getValue());
     }
     public static void main(String[] args) {
