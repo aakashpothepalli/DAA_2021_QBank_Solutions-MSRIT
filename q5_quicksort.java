@@ -1,7 +1,6 @@
 public class q5_quicksort {
 
-    public static int partition(int arr[],int left,int right)
-    {
+    public static int partition(int arr[],int left,int right){
         int i=left-1;
         int j=0;
         int pivot=arr[right-1],temp;
